@@ -1,11 +1,10 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import {
     AtSymbolIcon,
-    ExclamationCircleIcon,
-    KeyIcon,
     IdentificationIcon,
+    KeyIcon,
 } from "@heroicons/react/24/outline";
 import { Button } from "@/app/ui/button";
 import { ArrowRightIcon } from "@heroicons/react/20/solid";
@@ -21,8 +20,6 @@ export default function RegisterForm() {
         },
         message: "",
     });
-
-    console.log(errorMessage);
 
     return (
         <form action={dispatch} className="space-y-3">
@@ -49,6 +46,19 @@ export default function RegisterForm() {
                             />
                             <IdentificationIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                         </div>
+                        <div>
+                            {errorMessage?.errors.name &&
+                                errorMessage.errors.name.map(
+                                    (error: string) => (
+                                        <p
+                                            key={error}
+                                            className="mt-2 text-sm text-red-500"
+                                        >
+                                            {error}
+                                        </p>
+                                    )
+                                )}
+                        </div>
                     </div>
                     <div className="mt-4">
                         <label
@@ -67,6 +77,19 @@ export default function RegisterForm() {
                                 required
                             />
                             <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+                        </div>
+                        <div>
+                            {errorMessage?.errors.email &&
+                                errorMessage.errors.email.map(
+                                    (error: string) => (
+                                        <p
+                                            key={error}
+                                            className="mt-2 text-sm text-red-500"
+                                        >
+                                            {error}
+                                        </p>
+                                    )
+                                )}
                         </div>
                     </div>
                     <div className="mt-4">
@@ -87,13 +110,22 @@ export default function RegisterForm() {
                             />
                             <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
                         </div>
+                        <div>
+                            {errorMessage?.errors.password &&
+                                errorMessage.errors.password.map(
+                                    (error: string) => (
+                                        <p
+                                            key={error}
+                                            className="mt-2 text-sm text-red-500"
+                                        >
+                                            {error}
+                                        </p>
+                                    )
+                                )}
+                        </div>
                     </div>
                 </div>
-                {/*<RegisterButton />*/}
-                <Button type="submit" className="mt-4 w-full">
-                    Register{" "}
-                    <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
-                </Button>
+                <RegisterButton />
                 <div className="mt-2 text-gray-400">
                     Have account?
                     <Link href="/login" className="text-blue-400">
@@ -116,5 +148,15 @@ export default function RegisterForm() {
                 </div>
             </div>
         </form>
+    );
+}
+
+function RegisterButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <Button type="submit" className="mt-4 w-full" aria-disabled={pending}>
+            Register <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+        </Button>
     );
 }

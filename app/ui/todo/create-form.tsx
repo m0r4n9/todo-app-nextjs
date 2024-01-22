@@ -1,16 +1,18 @@
 "use client";
 
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/app/ui/button";
+import { createTask } from "@/app/lib/actions";
+import { CustomCalendar } from "@/app/ui/components/CustomCalendar";
 
 export default function Form() {
-    // const [state, dispatch] = useFormState(createTodo, {
-    //     errors: undefined,
-    //     message: "",
-    // });
+    const [state, dispatch] = useFormState(createTask, {
+        errors: undefined,
+        message: "",
+    });
 
     return (
-        <form>
+        <form action={dispatch}>
             <div>
                 <div>
                     <label htmlFor="title">Choose Title Task</label>
@@ -22,10 +24,32 @@ export default function Form() {
                     />
                 </div>
                 <div>
-                    <input type="hidden" name="authorId" value="2" />
+                    <label htmlFor="title">Enter Description Task</label>
+                    <input
+                        type="text"
+                        name="desc"
+                        placeholder="Enter Description Task"
+                    />
                 </div>
-                <Button type="submit">Create Task</Button>
+                <div>
+                    <CustomCalendar locale="en" />
+                </div>
+            </div>
+            <div>
+                <CreateTaskButton />
             </div>
         </form>
+    );
+}
+
+function CreateTaskButton() {
+    const { pending } = useFormStatus();
+
+    return (
+        <div>
+            <Button type="submit" aria-disabled={pending}>
+                Create Task
+            </Button>
+        </div>
     );
 }

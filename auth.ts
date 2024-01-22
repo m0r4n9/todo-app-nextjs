@@ -42,7 +42,6 @@ export const {
         ...authConfig,
         // @ts-ignore
         async session({ session, token }) {
-            console.log(token);
             return {
                 user: {
                     id: token.sub,

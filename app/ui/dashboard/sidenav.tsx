@@ -15,7 +15,7 @@ export default function SideNav() {
                         await signOut();
                     }}
                 >
-                    <button className="flex w-full rounded-md bg-gray-100 p-3">
+                    <button className="flex w-full rounded-md p-3 transition duration-300 hover:bg-gray-300">
                         <PowerIcon className="w-6" />
                         <div>Sign Out</div>
                     </button>
