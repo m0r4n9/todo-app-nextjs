@@ -14,7 +14,17 @@ const config: Config = {
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
         },
+        keyframes: {
+            shimmer: {
+                "100%": {
+                    transform: "translateX(100%)",
+                },
+            },
+        },
     },
-    plugins: [],
+    plugins: [
+        require("tailwindcss-react-aria-components"),
+        require("tailwindcss-animate"),
+    ],
 };
 export default config;

@@ -1,10 +1,11 @@
+import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import bcrypt from "bcrypt";
-import { authConfig } from "./auth.config";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
 
+import prisma from "@/lib/prisma";
+
+import { authConfig } from "./auth.config";
 
 type User = {
     id: number;
@@ -34,17 +35,19 @@ async function getUser(email: string): Promise<User | null> {
 
 export const {
     auth,
+    handlers: { GET, POST },
     signIn,
     signOut,
 } = NextAuth({
     ...authConfig,
     callbacks: {
-        ...authConfig,
+        ...authConfig.callbacks,
         // @ts-ignore
-        async session({ session, token }) {
+        session({ session, token }) {
             return {
                 user: {
                     id: token.sub,
+                    name: token.name,
                 },
                 expires: session.expires,
             };
@@ -52,6 +55,11 @@ export const {
     },
     providers: [
         Credentials({
+            name: "Credentials",
+            credentials: {
+                name: { label: "Name", type: "text" },
+                password: { label: "Password", type: "password" },
+            },
             async authorize(credentials) {
                 const parsedCredentials = z
                     .object({
@@ -69,7 +77,11 @@ export const {
                         user.password
                     );
 
-                    return user as any;
+                    if (passwordMatch)
+                        return {
+                            name: user.name,
+                            id: user.id,
+                        } as any;
                 }
 
                 console.log("Invalid credentials");

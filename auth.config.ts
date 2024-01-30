@@ -8,7 +8,9 @@ export const authConfig = {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             // We can use array for many protected routes
-            const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");
+            const isOnDashboard =
+                nextUrl.pathname.startsWith("/dashboard") ||
+                nextUrl.pathname.startsWith("/todo");
             if (isOnDashboard) {
                 return isLoggedIn;
             } else if (isLoggedIn) {

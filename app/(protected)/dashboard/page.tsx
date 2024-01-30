@@ -1,9 +1,13 @@
-import {Metadata} from "next";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: 'Home'
-}
+    title: "Home",
+};
 
 export default function Page() {
-    return <p>It is page dashboard</p>;
+    return (
+        <div className="text-white">
+            <p>It is page home</p>
+        </div>
+    );
 }

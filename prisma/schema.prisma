@@ -8,11 +8,20 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
   password String
-  email    String @unique
+  email    String    @unique
   todolist Task[]
+  sessions Session[]
+}
+
+model Session {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Task {
@@ -20,6 +29,7 @@ model Task {
   title     String
   desc      String?
   deadline  DateTime?
+  status    Boolean   @default(false)
   userId    Int
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
