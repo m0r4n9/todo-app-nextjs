@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/Button";
 import { register } from "@/lib/actions";
 
 export default function RegisterForm() {

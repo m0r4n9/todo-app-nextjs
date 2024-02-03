@@ -1,9 +1,9 @@
 import { PowerIcon } from "@heroicons/react/24/outline";
 
 import { signOut } from "@/auth";
-import NavLinks from "@/components/dashboard/nav-links";
+import NavLinks from "@/components/nav-links";
 
-import { SidenavHeader } from "./dashboard/sidenavHeader";
+import { SidenavHeader } from "./sidenavHeader";
 
 export default function SideNav() {
     return (
@@ -19,7 +19,7 @@ export default function SideNav() {
                         await signOut();
                     }}
                 >
-                    <button className="flex w-full gap-2 rounded-md p-3 text-white transition duration-300 hover:bg-zinc-500">
+                    <button className="flex w-full gap-2 rounded-md p-3 transition duration-300 hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-500">
                         <PowerIcon className="w-6" />
                         <div>Sign Out</div>
                     </button>

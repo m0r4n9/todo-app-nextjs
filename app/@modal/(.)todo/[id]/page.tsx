@@ -1,4 +1,4 @@
-import { Modal } from "@/components/componentsS/Modal";
+import { Modal } from "@/components/Modal";
 import { EditForm } from "@/components/todo/edit-form";
 import { getTaskById } from "@/lib/data";
 
@@ -23,9 +23,7 @@ export default async function ModalEditTask({
 
     return (
         <Modal>
-            <div className="w-[40vw] rounded bg-zinc-800 p-3 text-white">
-                <EditForm task={taskData} />
-            </div>
+            <EditForm task={taskData} />
         </Modal>
     );
 }

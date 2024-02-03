@@ -42,7 +42,7 @@ export const {
     ...authConfig,
     callbacks: {
         ...authConfig.callbacks,
-        // @ts-ignore
+        //@ts-ignore
         session({ session, token }) {
             return {
                 user: {

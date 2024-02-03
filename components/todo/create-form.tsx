@@ -2,8 +2,7 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 
-import { Button } from "@/components/button";
-import { CustomCalendar } from "@/components/componentsS/CustomCalendar";
+import { Button } from "@/components/Button";
 import { createTask } from "@/lib/actions";
 
 export default function Form() {
@@ -31,9 +30,6 @@ export default function Form() {
                         name="desc"
                         placeholder="Enter Description Task"
                     />
-                </div>
-                <div>
-                    <CustomCalendar locale="en" />
                 </div>
             </div>
             <div>

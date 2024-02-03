@@ -35,7 +35,7 @@ export default function CreateTask() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Добавить новую задачу"
-                    className="grow rounded-r-lg bg-neutral-600 p-2 text-white placeholder:text-gray-300 focus:outline-none"
+                    className="grow rounded-r-lg bg-gray-100 p-2 placeholder:text-black focus:outline-none dark:bg-neutral-600 dark:text-white dark:placeholder:text-gray-300"
                     disabled={isPending}
                 />
             </div>
@@ -53,10 +53,10 @@ const CreateButton = ({
     return (
         <button
             onClick={onSubmit}
-            className="flex rounded-l-lg bg-neutral-600 p-2"
+            className="flex rounded-l-lg bg-gray-100 p-2 dark:bg-neutral-600"
             aria-disabled={pending}
         >
-            <PlusIcon className="h-[24px] w-[24px] text-white transition duration-300 hover:rotate-90" />
+            <PlusIcon className="h-[24px] w-[24px] transition duration-300 hover:rotate-90 dark:text-white" />
         </button>
     );
 };

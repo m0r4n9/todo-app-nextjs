@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { auth } from "@/auth";
-import { Providers } from "@/components/componentsS/Providers";
+import { Providers } from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,8 +26,16 @@ export default async function RootLayout({
     const session = await auth();
 
     return (
-        <html lang="ru" dir="ltr">
-            <body className={`${inter.className} bg-zinc-900 antialiased`}>
+        <html className="dark overflow-y-scroll">
+            <head>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+                />
+            </head>
+            <body
+                className={`${inter.className} antialiased transition duration-300 dark:bg-zinc-900`}
+            >
                 <Providers session={session}>
                     {children}
                     <div id="modal">{modal}</div>

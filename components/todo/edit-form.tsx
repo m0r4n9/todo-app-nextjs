@@ -1,16 +1,14 @@
 "use client";
 
 import {
-    DateFormatter,
     getLocalTimeZone,
     parseAbsoluteToLocal,
-    parseDate,
     toCalendarDate,
     today,
 } from "@internationalized/date";
 import type { Task } from "@prisma/client";
 import { useState, useTransition } from "react";
-import { DateValue, useLocale } from "react-aria-components";
+import { DateValue } from "react-aria-components";
 
 import { DatePicker } from "@/components/ui/DatePicker";
 import { updateTask } from "@/lib/actions";
@@ -19,7 +17,6 @@ export const EditForm = (props: { task: Task }) => {
     const { task } = props;
     const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState<Task>({ ...task });
-    const { locale } = useLocale();
 
     const onChaneData = (key: keyof Task, value: string) => {
         setFormData((prevState) => ({ ...prevState, [key]: value }));
@@ -41,21 +38,19 @@ export const EditForm = (props: { task: Task }) => {
     };
 
     return (
-        <div>
-            <div>
-                <div>
-                        <label htmlFor="title">Задача: </label>
-                        <input
-                            type="text"
-                            name="title"
-                            value={formData.title}
-                            onChange={(e) =>
-                                onChaneData("title", e.target.value)
-                            }
-                            className="ml-2 rounded bg-neutral-600 px-2 py-1"
-                        />
-                </div>
+        <div className="w-[40vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white">
+            <div className="pt-2">
+                <label htmlFor="title">Задача: </label>
+                <input
+                    type="text"
+                    name="title"
+                    value={formData.title}
+                    onChange={(e) => onChaneData("title", e.target.value)}
+                    placeholder="Введите название задачи"
+                    className="ml-2 rounded bg-gray-300 px-2 py-1 dark:bg-neutral-600"
+                />
             </div>
+
             <div className="mt-4 flex flex-col">
                 <label htmlFor="desc" className="mb-2 block font-medium">
                     Описание
@@ -66,7 +61,7 @@ export const EditForm = (props: { task: Task }) => {
                     placeholder="Напишите описание задачи."
                     value={formData.desc ?? ""}
                     onChange={(e) => onChaneData("desc", e.target.value)}
-                    className="block h-40 w-full resize-none rounded-lg bg-neutral-600 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="black:bg-neutral-600 block h-40 w-full resize-none rounded-lg bg-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-600"
                 />
             </div>
 
@@ -92,13 +87,13 @@ export const EditForm = (props: { task: Task }) => {
                 <button
                     disabled={isPending}
                     onClick={handleUpdateTask}
-                    className="h-10 rounded-lg px-4 text-sm text-white transition duration-150 hover:bg-zinc-900"
+                    className="h-10 rounded-lg px-4 text-sm  transition duration-150 hover:bg-zinc-900 hover:text-white"
                 >
                     Сохранить
                 </button>
                 <button
                     onClick={resetChange}
-                    className="h-10 rounded-lg px-4 text-sm text-white transition duration-150 hover:bg-red-500"
+                    className="h-10 rounded-lg px-4 text-sm  transition duration-150 hover:bg-red-500"
                 >
                     Отменить
                 </button>

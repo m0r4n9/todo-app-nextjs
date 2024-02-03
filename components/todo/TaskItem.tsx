@@ -19,7 +19,7 @@ export const TaskItem = (props: { task: Task }) => {
     };
 
     return (
-        <div className="flex justify-between rounded border-b-2 border-neutral-600 bg-zinc-800 p-2 first:mt-0">
+        <div className="flex justify-between rounded border-b-2 bg-gray-100 p-2 first:mt-0 dark:border-neutral-600 dark:bg-zinc-800">
             <div className="mt-1 flex items-center gap-2">
                 <div>
                     <input

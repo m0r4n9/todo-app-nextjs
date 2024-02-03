@@ -20,9 +20,7 @@ export default async function Page({
 
     return (
         <main>
-            <div className="w-[40vw] rounded bg-zinc-800 p-3 text-white">
-                <EditForm task={taskData} />
-            </div>
+            <EditForm task={taskData} />
         </main>
     );
 }
