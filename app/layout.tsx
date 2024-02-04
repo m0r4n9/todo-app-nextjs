@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 import { auth } from "@/auth";
 import { Providers } from "@/components/Providers";
+import SideNav from "@/components/sidenav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,20 +27,23 @@ export default async function RootLayout({
     const session = await auth();
 
     return (
-        <html className="dark overflow-y-scroll">
+        <html suppressHydrationWarning>
             <head>
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
                 />
             </head>
-            <body
-                className={`${inter.className} antialiased transition duration-300 dark:bg-zinc-900`}
-            >
+            <body>
                 <Providers session={session}>
-                    {children}
-                    <div id="modal">{modal}</div>
+                    <div className="flex h-screen gap-2">
+                        <div className="w-60 flex-none">
+                            <SideNav />
+                        </div>
+                        <div className="flex-grow p-6">{children}</div>
+                    </div>
                 </Providers>
+                <div>{modal}</div>
             </body>
         </html>
     );

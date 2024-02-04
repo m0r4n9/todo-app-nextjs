@@ -17,7 +17,7 @@ export default function LoginForm() {
 
     return (
         <form action={dispatch} className="space-y-3">
-            <div className="flex-1 rounded-lg bg-zinc-800 px-6 pb-4 pt-8 text-white">
+            <div className="flex-1 rounded-lg bg-gray-100 px-6 pb-4 pt-8 dark:bg-zinc-800 dark:text-white">
                 <h1 className={`mb-3 text-2xl font-bold`}>Авторизация</h1>
                 <div className="w-full">
                     <div>
@@ -29,33 +29,33 @@ export default function LoginForm() {
                         </label>
                         <div className="relative">
                             <input
-                                className="peer block w-full rounded-md bg-neutral-600 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-300 focus:border-black focus:outline-none"
+                                className="bg-g peer block w-full rounded-md py-[9px] pl-10 text-sm outline-2 focus:border-black focus:outline-none dark:bg-neutral-600 dark:placeholder:text-gray-300"
                                 id="email"
                                 type="email"
                                 name="email"
                                 placeholder="Введите электронную почту"
                                 required
                             />
-                            <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-white" />
+                            <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 dark:text-white" />
                         </div>
                     </div>
                     <div className="mt-4">
                         <label
-                            className="mb-3 mt-5 block text-xs font-medium text-white"
+                            className="mb-3 mt-5 block text-xs font-medium"
                             htmlFor="password"
                         >
                             Пароль
                         </label>
                         <div className="relative">
                             <input
-                                className="peer block w-full rounded-md bg-neutral-600 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-300 focus:border-black focus:outline-none"
+                                className="peer block w-full rounded-md py-[9px] pl-10 text-sm outline-2 focus:border-black focus:outline-none dark:bg-neutral-600 dark:placeholder:text-gray-300"
                                 id="password"
                                 type="password"
                                 name="password"
                                 placeholder="Введите пароль"
                                 required
                             />
-                            <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-white" />
+                            <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 dark:text-white" />
                         </div>
                     </div>
                 </div>

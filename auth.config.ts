@@ -10,7 +10,8 @@ export const authConfig = {
             // We can use array for many protected routes
             const isOnDashboard =
                 nextUrl.pathname.startsWith("/dashboard") ||
-                nextUrl.pathname.startsWith("/todo");
+                nextUrl.pathname.startsWith("/todo") ||
+                nextUrl.pathname.startsWith("/settings");
             if (isOnDashboard) {
                 return isLoggedIn;
             } else if (isLoggedIn) {

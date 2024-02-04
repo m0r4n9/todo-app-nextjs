@@ -3,7 +3,9 @@
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-import ThemeContextProviders from "@/app/contexts/ThemeContext";
+import { ThemeProvider } from "@/components/contexts/ThemeContext";
+
+import { ToastContextProvider } from "./contexts/ToastContext";
 
 export function Providers({
     children,
@@ -13,8 +15,10 @@ export function Providers({
     session: Session | null;
 }) {
     return (
-        <ThemeContextProviders>
-            <SessionProvider session={session}>{children}</SessionProvider>
-        </ThemeContextProviders>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <ToastContextProvider>
+                <SessionProvider session={session}>{children}</SessionProvider>
+            </ToastContextProvider>
+        </ThemeProvider>
     );
 }

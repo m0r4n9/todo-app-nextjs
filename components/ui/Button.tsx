@@ -11,6 +11,7 @@ export interface ButtonProps extends AriaButtonProps {
     className?: string;
 }
 
+// Button for adobe libs
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     { children, Icon, loading, className, ...rest },
     forwardedRef

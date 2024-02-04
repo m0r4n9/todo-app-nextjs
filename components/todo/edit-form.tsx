@@ -33,7 +33,8 @@ export const EditForm = (props: { task: Task }) => {
 
     const handleUpdateTask = async () => {
         startTransition(async () => {
-            await updateTask(formData);
+            await updateTask(formData).then((res) => console.log(res));
+            //console.log(res);
         });
     };
 

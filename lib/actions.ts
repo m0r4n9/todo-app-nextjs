@@ -211,6 +211,5 @@ export async function updateTask(data: Task) {
         console.log(e);
         return { message: "Database Errro: Failed to Update Task" };
     }
-    revalidatePath(`/todo`);
     redirect(`/todo`);
 }

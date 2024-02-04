@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 const links = [
     { name: "Home", href: "/dashboard", icon: HomeIcon },
     { name: "My todo list", href: "/todo", icon: QueueListIcon },
-    { name: "Settings", href: "/dashboard/settings", icon: Cog6ToothIcon },
+    { name: "Settings", href: "/settings", icon: Cog6ToothIcon },
 ];
 
 export default function NavLinks() {
