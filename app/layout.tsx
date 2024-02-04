@@ -5,7 +5,6 @@ import { Inter } from "next/font/google";
 
 import { auth } from "@/auth";
 import { Providers } from "@/components/Providers";
-import SideNav from "@/components/sidenav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,14 +34,7 @@ export default async function RootLayout({
                 />
             </head>
             <body>
-                <Providers session={session}>
-                    <div className="flex h-screen gap-2">
-                        <div className="w-60 flex-none">
-                            <SideNav />
-                        </div>
-                        <div className="flex-grow p-6">{children}</div>
-                    </div>
-                </Providers>
+                <Providers session={session}>{children}</Providers>
                 <div>{modal}</div>
             </body>
         </html>
