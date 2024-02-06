@@ -43,7 +43,7 @@ export async function fetchTodoList(deadline?: string) {
                 userId: Number(userData.id),
                 ...deadlineCondition,
             },
-            orderBy: [{ status: "asc" }, { id: "desc" }],
+            orderBy: [{ status: "asc" }, { deadline: "asc" }, { id: "desc" }],
         });
     } catch (err) {
         console.log("Database error:", err);

@@ -10,9 +10,22 @@ import { ClipLoader } from "react-spinners";
 
 import { deleteTask, updateStatus } from "@/lib/actions";
 
+const DaysLeftFunc = (daysLeft: number) => {
+    if (daysLeft > 0) return `Дней осталось: ${daysLeft}`;
+    if (daysLeft === 0) return "Последний день";
+    if (daysLeft < 0) return "Срок истек";
+};
+
 export const TaskItem = (props: { task: Task }) => {
     const { task } = props;
     const [isPending, startTransition] = useTransition();
+
+    const daysLeft = task.deadline
+        ? Math.ceil(
+              (task.deadline.getTime() - new Date().getTime()) /
+                  (1000 * 60 * 60 * 24)
+          )
+        : null;
 
     const handleDeleteTask = async () => {
         startTransition(async () => {
@@ -58,7 +71,7 @@ export const TaskItem = (props: { task: Task }) => {
             className="rounded border-b-2 bg-gray-100  dark:border-neutral-600 dark:bg-zinc-800"
         >
             <div className="flex justify-between p-2">
-                <div className="flex items-center">
+                <div className="flex items-center gap-2">
                     <div>
                         <input
                             type="checkbox"
@@ -67,6 +80,11 @@ export const TaskItem = (props: { task: Task }) => {
                         />
                     </div>
                     <div>
+                        {daysLeft !== null && (
+                            <div className="mt-1 text-sm text-gray-400">
+                                {DaysLeftFunc(daysLeft)}
+                            </div>
+                        )}
                         <Link
                             prefetch={false}
                             href={`/todo/${task.id}`}

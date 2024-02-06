@@ -21,7 +21,7 @@ export default function SideNav() {
                 >
                     <button className="flex w-full gap-2 rounded-md p-3 transition duration-300 hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-500">
                         <PowerIcon className="w-6" />
-                        <div>Sign Out</div>
+                        <div>Выйти</div>
                     </button>
                 </form>
             </div>
