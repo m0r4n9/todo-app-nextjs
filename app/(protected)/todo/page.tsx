@@ -8,7 +8,15 @@ export const metadata: Metadata = {
     title: "List",
 };
 
-export default function Page() {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams?: {
+        op: string;
+    };
+}) {
+    const option = searchParams?.op || "";
+
     return (
         <main className="dark:text-white">
             <div>
@@ -16,7 +24,7 @@ export default function Page() {
             </div>
             <div>
                 <Suspense fallback={<TaskSkeleton />}>
-                    <TodoList />
+                    <TodoList option={option} />
                 </Suspense>
             </div>
         </main>

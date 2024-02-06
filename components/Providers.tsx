@@ -3,9 +3,8 @@
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-import { ThemeProvider } from "@/components/contexts/ThemeContext";
-
-import { ToastContextProvider } from "./contexts/ToastContext";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ToastContextProvider } from "@/components/providers/ToastProvider";
 
 export function Providers({
     children,

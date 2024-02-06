@@ -34,8 +34,10 @@ export default async function RootLayout({
                 />
             </head>
             <body>
-                <Providers session={session}>{children}</Providers>
-                <div>{modal}</div>
+                <Providers session={session}>
+                    {children}
+                    <div>{modal}</div>
+                </Providers>
             </body>
         </html>
     );

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { ToastContext } from "@/components/contexts/ToastContext";
+import { ToastContext } from "@/components/providers/ToastProvider";
 
 interface UseShowToastProps {
     title: string;
@@ -16,7 +16,7 @@ export const useShowToast = () => {
         title,
         message,
         type,
-        timeout = 2000,
+        timeout,
     }: UseShowToastProps) => {
         if (!addToast) return;
         addToast(

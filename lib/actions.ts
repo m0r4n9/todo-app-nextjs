@@ -209,7 +209,31 @@ export async function updateTask(data: Task) {
         });
     } catch (e) {
         console.log(e);
-        return { message: "Database Errro: Failed to Update Task" };
+        return { message: "Database Error: Failed to Update Task" };
     }
-    redirect(`/todo`);
+
+    redirect("/todo");
+}
+
+export async function updateStatus(taskId: number, newStatus: boolean) {
+    if (!taskId) {
+        return {
+            message: "Missing Task ID.",
+        };
+    }
+
+    try {
+        await prisma.task.update({
+            where: {
+                id: taskId,
+            },
+            data: {
+                status: newStatus,
+            },
+        });
+    } catch (e) {
+        console.log(e);
+        return { message: "Database Error: Failed to Compleate Task" };
+    }
+    revalidatePath("/todo");
 }

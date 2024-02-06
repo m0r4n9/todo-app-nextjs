@@ -9,7 +9,7 @@ import {
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 import { authenticate } from "@/lib/actions";
 
 export default function LoginForm() {

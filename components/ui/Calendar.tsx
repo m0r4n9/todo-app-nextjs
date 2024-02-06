@@ -7,7 +7,7 @@ import { DateValue } from "@react-types/calendar";
 import { AriaCalendarProps, useCalendar, useLocale } from "react-aria";
 import { useCalendarState } from "react-stately";
 
-import Button from "./Button";
+import Button from "./ButtonAria";
 import { CalendarGrid } from "./CalendarGrid";
 
 export function Calendar<T extends DateValue>(props: AriaCalendarProps<T>) {

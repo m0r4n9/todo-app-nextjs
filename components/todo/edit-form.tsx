@@ -1,5 +1,6 @@
 "use client";
 
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
     getLocalTimeZone,
     parseAbsoluteToLocal,
@@ -7,16 +8,22 @@ import {
     today,
 } from "@internationalized/date";
 import type { Task } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { DateValue } from "react-aria-components";
 
 import { DatePicker } from "@/components/ui/DatePicker";
+import { useShowToast } from "@/hooks/useShowToast";
 import { updateTask } from "@/lib/actions";
+
+import { Button } from "../ui/Button";
 
 export const EditForm = (props: { task: Task }) => {
     const { task } = props;
     const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState<Task>({ ...task });
+    const router = useRouter();
+    const { showToast } = useShowToast();
 
     const onChaneData = (key: keyof Task, value: string) => {
         setFormData((prevState) => ({ ...prevState, [key]: value }));
@@ -33,17 +40,27 @@ export const EditForm = (props: { task: Task }) => {
 
     const handleUpdateTask = async () => {
         startTransition(async () => {
-            await updateTask(formData).then((res) => console.log(res));
-            //console.log(res);
+            await updateTask(formData);
+            showToast({
+                title: "Задача успешно обновлена",
+                type: "success",
+                timeout: 3500,
+            });
         });
     };
 
     return (
-        <div className="w-[40vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white">
+        <div className="relative w-[40vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white">
+            <div className="absolute right-1 top-1">
+                <Button size="icon" onClick={() => router.back()}>
+                    <XMarkIcon />
+                </Button>
+            </div>
             <div className="pt-2">
                 <label htmlFor="title">Задача: </label>
                 <input
                     type="text"
+                    id="title"
                     name="title"
                     value={formData.title}
                     onChange={(e) => onChaneData("title", e.target.value)}

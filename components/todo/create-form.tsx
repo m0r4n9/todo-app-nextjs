@@ -2,7 +2,7 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 import { createTask } from "@/lib/actions";
 
 export default function Form() {

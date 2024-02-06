@@ -1,7 +1,7 @@
 "use client";
 
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { BeatLoader } from "react-spinners";
 
 import { shortCreateTask } from "@/lib/actions";
@@ -10,19 +10,33 @@ export default function CreateTask() {
     const [title, setTitle] = useState("");
     const [isPending, startTransition] = useTransition();
 
-    const handleCreateTask = async () => {
+    const handleCreateTask = useCallback(async () => {
         startTransition(async () => {
             shortCreateTask(title).then(() => {
                 setTitle("");
             });
         });
-    };
+    }, [title]);
+
+    useEffect(() => {
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Enter") {
+                handleCreateTask();
+            }
+        };
+
+        window.addEventListener("keydown", onKeyDown);
+
+        return () => {
+            window.removeEventListener("keydown", onKeyDown);
+        };
+    }, [handleCreateTask]);
 
     return (
-        <div>
+        <div className="rounded bg-gray-100 dark:bg-neutral-600">
             <div className="relative flex items-center rounded">
                 {isPending ? (
-                    <BeatLoader size={9} color="#000" />
+                    <BeatLoader size={9} className="text-white" />
                 ) : (
                     <CreateButton
                         pending={isPending}
@@ -35,7 +49,7 @@ export default function CreateTask() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Добавить новую задачу"
-                    className="grow rounded-r-lg bg-gray-100 p-2 placeholder:text-black focus:outline-none dark:bg-neutral-600 dark:text-white dark:placeholder:text-gray-300"
+                    className="grow rounded-r-lg bg-inherit p-2 placeholder:text-black focus:outline-none  dark:text-white dark:placeholder:text-gray-300"
                     disabled={isPending}
                 />
             </div>
@@ -53,7 +67,7 @@ const CreateButton = ({
     return (
         <button
             onClick={onSubmit}
-            className="flex rounded-l-lg bg-gray-100 p-2 dark:bg-neutral-600"
+            className="flex cursor-pointer rounded-l-lg bg-inherit p-2 "
             aria-disabled={pending}
         >
             <PlusIcon className="h-[24px] w-[24px] transition duration-300 hover:rotate-90 dark:text-white" />

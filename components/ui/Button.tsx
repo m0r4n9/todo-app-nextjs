@@ -1,42 +1,55 @@
-"use client";
-import { mergeProps, useObjectRef } from "@react-aria/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 import clsx from "clsx";
-import { forwardRef, SVGProps } from "react";
-import { AriaButtonProps, useButton, useFocusRing } from "react-aria";
 
-export interface ButtonProps extends AriaButtonProps {
-    children?: React.ReactNode;
-    Icon?: (props: SVGProps<SVGSVGElement>) => JSX.Element;
-    loading?: boolean;
-    className?: string;
+import { cn } from "@/lib/cn";
+
+const buttonVariants = cva(
+    "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+    {
+        variants: {
+            variant: {
+                default:
+                    "bg-black dark:bg-zinc-800 text-white dark:text-blackhover:bg-black/80 dark:hover:bg-zinc-800/80",
+                destructive:
+                    "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+                outline:
+                    "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                ghost: "text-black dark:text-white",
+                link: "underline-offset-4  hover:underline",
+            },
+            size: {
+                default: "h-10 px-4 py-2",
+                sm: "h-9 rounded-md px-3",
+                lg: "h-11 rounded-md px-8",
+                icon: "h-[24px] w-[24px]",
+            },
+        },
+        defaultVariants: {
+            variant: "default",
+            size: "default",
+        },
+    }
+);
+
+interface ButtonProps
+    extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+        VariantProps<typeof buttonVariants> {
+    children: React.ReactNode;
 }
 
-// Button for adobe libs
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-    { children, Icon, loading, className, ...rest },
-    forwardedRef
-) {
-    const iconOnly = children === undefined;
-    // Support forwarded refs: https://github.com/adobe/react-spectrum/pull/2293#discussion_r714337674
-    const ref = useObjectRef(forwardedRef);
-    const { buttonProps } = useButton(rest, ref);
-    const { isFocusVisible, focusProps } = useFocusRing();
-
+export function Button({
+    children,
+    variant,
+    size,
+    className,
+    ...rest
+}: ButtonProps) {
     return (
         <button
-            {...mergeProps(buttonProps, focusProps)}
-            ref={ref}
-            className={clsx(
-                iconOnly && "rounded-full p-3",
-                isFocusVisible && "ring-2 ring-violet-500 ring-offset-2",
-                className
-            )}
-            disabled={buttonProps.disabled || loading}
+            {...rest}
+            className={cn(buttonVariants({ variant, size, className }))}
         >
-            {!loading ? Icon && <Icon /> : <div>Loading</div>}
             {children}
         </button>
     );
-});
-
-export default Button;
+}

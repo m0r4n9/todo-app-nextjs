@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { currentUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
-export async function fetchTodoList() {
+export async function fetchTodoList(deadline?: string) {
     noStore();
 
     try {
@@ -20,11 +20,30 @@ export async function fetchTodoList() {
             throw new Error("Database Failed: cannot get user data by email.");
         }
 
+        if (deadline === "all") {
+            return await prisma.task.findMany({
+                where: {
+                    userId: Number(userData.id),
+                },
+                orderBy: [{ status: "asc" }, { id: "desc" }],
+            });
+        }
+
+        const deadlineCondition =
+            deadline === "deadline"
+                ? { NOT: { deadline: null } }
+                : {
+                      AND: {
+                          deadline: null,
+                      },
+                  };
+
         return await prisma.task.findMany({
             where: {
                 userId: Number(userData.id),
+                ...deadlineCondition,
             },
-            orderBy: [{ id: "desc" }, { status: "asc" }],
+            orderBy: [{ status: "asc" }, { id: "desc" }],
         });
     } catch (err) {
         console.log("Database error:", err);

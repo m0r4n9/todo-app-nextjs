@@ -3,9 +3,9 @@ import { type AriaToastProps, useToast } from "@react-aria/toast";
 import type { ToastState } from "@react-stately/toast";
 import { useRef } from "react";
 
-import Button from "@/components/ui/Button";
+import Button from "@/components/ui/ButtonAria";
 
-import { ToastType } from "../contexts/ToastContext";
+import { ToastType } from "../providers/ToastProvider";
 
 interface ToastProps<T> extends AriaToastProps<T> {
     state: ToastState<T>;
@@ -22,7 +22,7 @@ export function Toast<T extends ToastType>({ state, ...props }: ToastProps<T>) {
         <div
             {...toastProps}
             ref={ref}
-            className="flex justify-between gap-4 rounded-xl border px-2 py-2  dark:bg-neutral-600 dark:text-white"
+            className="flex justify-between gap-4 rounded-xl border bg-gray-100 px-2 py-2  dark:bg-neutral-600 dark:text-white"
         >
             <div>
                 <div>
