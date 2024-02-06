@@ -21,7 +21,7 @@ export const TabsTask = () => {
                 href={createOptionUrl("all")}
                 className={clsx({
                     "underline decoration-black dark:decoration-white":
-                        optionsTasks === "all",
+                        optionsTasks === "all" || !optionsTasks,
                 })}
             >
                 Все

@@ -20,7 +20,7 @@ export async function fetchTodoList(deadline?: string) {
             throw new Error("Database Failed: cannot get user data by email.");
         }
 
-        if (deadline === "all") {
+        if (deadline === "all" || deadline === "") {
             return await prisma.task.findMany({
                 where: {
                     userId: Number(userData.id),
