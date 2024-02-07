@@ -7,7 +7,7 @@ import {
     toCalendarDate,
     today,
 } from "@internationalized/date";
-import type { Task } from "@prisma/client";
+import type { Tag, Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { DateValue } from "react-aria-components";
@@ -18,8 +18,8 @@ import { updateTask } from "@/lib/actions";
 
 import { Button } from "../ui/Button";
 
-export const EditForm = (props: { task: Task }) => {
-    const { task } = props;
+export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
+    const { task, tags } = props;
     const [isPending, startTransition] = useTransition();
     const [formData, setFormData] = useState<Task>({ ...task });
     const router = useRouter();
@@ -38,9 +38,9 @@ export const EditForm = (props: { task: Task }) => {
         setFormData(() => ({ ...task }));
     };
 
-    const handleUpdateTask = async () => {
-        startTransition(async () => {
-            await updateTask(formData);
+    const handleUpdateTask = () => {
+        startTransition(() => {
+            updateTask(formData);
             showToast({
                 title: "Задача успешно обновлена",
                 type: "success",
@@ -81,6 +81,20 @@ export const EditForm = (props: { task: Task }) => {
                     onChange={(e) => onChaneData("desc", e.target.value)}
                     className="black:bg-neutral-600 block h-40 w-full resize-none rounded-lg bg-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-600"
                 />
+            </div>
+
+            <div>
+                <select
+                    defaultValue={task.tagId || ""}
+                    onChange={(e) => onChaneData("tagId", e.target.value)}
+                >
+                    <option></option>
+                    {tags?.map((tag) => (
+                        <option key={tag.id} value={tag.id}>
+                            {tag.name}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             <div>

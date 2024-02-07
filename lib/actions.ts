@@ -11,6 +11,7 @@ import { currentUser } from "@/lib/auth";
 import { getUserByEmail } from "@/lib/data";
 import prisma from "@/lib/prisma";
 import {
+    CreateTag,
     CreateTaskSchema,
     RegisterSchema,
     ShortCreateTaskSchema,
@@ -153,7 +154,6 @@ export async function shortCreateTask(title: string) {
         };
     }
 
-    // const { title } = validatedFields.data;
     const userData = await currentUser();
 
     if (!userData?.id) {
@@ -205,7 +205,12 @@ export async function updateTask(data: Task) {
             where: {
                 id: data.id,
             },
-            data,
+            data: {
+                ...data,
+                ...(data.tagId
+                    ? { tagId: Number(data.tagId) }
+                    : { tagId: null }),
+            },
         });
     } catch (e) {
         console.log(e);
@@ -234,6 +239,75 @@ export async function updateStatus(taskId: number, newStatus: boolean) {
     } catch (e) {
         console.log(e);
         return { message: "Database Error: Failed to Compleate Task" };
+    }
+    revalidatePath("/todo");
+}
+
+export async function createTag(tagName: string) {
+    const validatedFields = CreateTag.safeParse({
+        name: tagName,
+    });
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: "Некорректные данные.",
+        };
+    }
+
+    const { name } = validatedFields.data;
+
+    const hasTag = await prisma.tag.findFirst({
+        where: {
+            name: {
+                contains: name,
+                mode: "insensitive",
+            },
+        },
+    });
+
+    if (hasTag) {
+        return {
+            message: "Данный тег уже существует",
+        };
+    }
+
+    const userData = await currentUser();
+
+    if (!userData?.id) {
+        return {
+            message: "User is not auth.",
+        };
+    }
+
+    try {
+        await prisma.tag.create({
+            data: {
+                name,
+                userId: Number(userData.id),
+            },
+        });
+    } catch (e) {
+        return {
+            message: "Database Error: Failed to Create Task.",
+        };
+    }
+
+    revalidatePath("/todo");
+}
+
+export async function deleteTag(id: number) {
+    try {
+        await prisma.tag.delete({
+            where: {
+                id,
+            },
+        });
+    } catch (e) {
+        console.log(e);
+        return {
+            message: "Database Error: Failed to Delete Tag.",
+        };
     }
     revalidatePath("/todo");
 }

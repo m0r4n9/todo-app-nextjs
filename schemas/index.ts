@@ -1,5 +1,4 @@
-import {z} from "zod";
-
+import { z } from "zod";
 
 export const RegisterSchema = z.object({
     email: z.string().email({
@@ -15,14 +14,20 @@ export const RegisterSchema = z.object({
 
 export const CreateTaskSchema = z.object({
     title: z.string().min(1, {
-        message: "Title is required."
+        message: "Title is required.",
     }),
     desc: z.string().optional(),
-    deadline: z.coerce.date()
+    deadline: z.coerce.date(),
 });
 
 export const ShortCreateTaskSchema = z.object({
     title: z.string().min(1, {
-        message: "Title is required."
-    })
+        message: "Title is required.",
+    }),
+});
+
+export const CreateTag = z.object({
+    name: z.string().min(1, {
+        message: "Название обязательно.",
+    }),
 });

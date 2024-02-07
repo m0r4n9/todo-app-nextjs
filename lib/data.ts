@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { currentUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
-export async function fetchTodoList(deadline?: string) {
+export async function fetchTodoList(deadline?: string, tagName?: string) {
     noStore();
 
     try {
@@ -24,6 +24,13 @@ export async function fetchTodoList(deadline?: string) {
             return await prisma.task.findMany({
                 where: {
                     userId: Number(userData.id),
+                    ...(tagName
+                        ? {
+                              tag: {
+                                  name: tagName,
+                              },
+                          }
+                        : {}),
                 },
                 orderBy: [{ status: "asc" }, { id: "desc" }],
             });
@@ -43,10 +50,44 @@ export async function fetchTodoList(deadline?: string) {
                 userId: Number(userData.id),
                 ...deadlineCondition,
             },
+            include: {
+                tag: {
+                    where: {
+                        ...(tagName ? { name: tagName } : {}),
+                    },
+                },
+            },
             orderBy: [{ status: "asc" }, { deadline: "asc" }, { id: "desc" }],
         });
     } catch (err) {
         console.log("Database error:", err);
+    }
+}
+
+export async function fetchTags() {
+    noStore();
+
+    try {
+        const userData = await currentUser();
+
+        if (!userData || !userData.id) {
+            throw new Error("User is not auth.");
+        }
+        const user = await prisma.user.findUnique({
+            where: { id: Number(userData.id) },
+        });
+
+        if (!user?.id) {
+            throw new Error("Database Failed: cannot get user data by email.");
+        }
+
+        return await prisma.tag.findMany({
+            where: {
+                userId: Number(user.id),
+            },
+        });
+    } catch (e) {
+        console.log(e);
     }
 }
 

@@ -13,9 +13,11 @@ export default async function Page({
 }: {
     searchParams?: {
         op: string;
+        tag: string;
     };
 }) {
     const option = searchParams?.op || "";
+    const tag = searchParams?.tag || "";
 
     return (
         <main className="dark:text-white">
@@ -24,7 +26,7 @@ export default async function Page({
             </div>
             <div>
                 <Suspense fallback={<TaskSkeleton />}>
-                    <TodoList option={option} />
+                    <TodoList option={option} tag={tag} />
                 </Suspense>
             </div>
         </main>

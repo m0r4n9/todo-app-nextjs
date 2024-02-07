@@ -1,6 +1,6 @@
 import { Modal } from "@/components/Modal";
 import { EditForm } from "@/components/todo/edit-form";
-import { getTaskById } from "@/lib/data";
+import { fetchTags, getTaskById } from "@/lib/data";
 
 export default async function ModalEditTask({
     params: { id },
@@ -8,6 +8,7 @@ export default async function ModalEditTask({
     params: { id: string };
 }) {
     const taskData = await getTaskById(id);
+    const tags = await fetchTags();
 
     if (!taskData) {
         return (
@@ -23,7 +24,7 @@ export default async function ModalEditTask({
 
     return (
         <Modal>
-            <EditForm task={taskData} />
+            <EditForm task={taskData} tags={tags} />
         </Modal>
     );
 }
