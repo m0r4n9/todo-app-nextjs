@@ -9,11 +9,10 @@ import { createTag } from "@/lib/actions";
 interface CreateTagProps {
     open: boolean;
     toggleOpen: () => void;
-    onClose?: () => void;
 }
 
 export const CreateTag = (props: CreateTagProps) => {
-    const { open, toggleOpen, onClose } = props;
+    const { open, toggleOpen } = props;
     const [tagName, setTagName] = useState("");
     const [isPending, startTransition] = useTransition();
     const { showToast } = useShowToast();

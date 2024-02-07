@@ -6,9 +6,15 @@ import { useCallback, useState } from "react";
 import { CreateTag } from "./create-tag";
 import { TagsDropdown } from "./tags-dropdown";
 
-export const TagsActions = ({ tags }: { tags?: Tag[] }) => {
+interface TagsActionsProps {
+    tags?: Tag[];
+    addTagMenu: boolean;
+    toggleTagMenu: () => void;
+}
+
+export const TagsActions = (props: TagsActionsProps) => {
+    const { tags, addTagMenu, toggleTagMenu } = props;
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [addTagMenu, setAddTagMenu] = useState(false);
 
     const toggleOpenDropdown = useCallback(
         () => setDropdownOpen((prevState) => !prevState),
@@ -17,12 +23,8 @@ export const TagsActions = ({ tags }: { tags?: Tag[] }) => {
 
     const onCloseDropdown = useCallback(() => setDropdownOpen(false), []);
 
-    const toggleOpenMenu = useCallback(() => {
-        setAddTagMenu((prevState) => !prevState);
-    }, []);
-
     return (
-        <div className="flex gap-2">
+        <div className="flex min-h-7 gap-2">
             {!addTagMenu && (
                 <TagsDropdown
                     tags={tags}
@@ -32,7 +34,7 @@ export const TagsActions = ({ tags }: { tags?: Tag[] }) => {
                 />
             )}
 
-            <CreateTag open={addTagMenu} toggleOpen={toggleOpenMenu} />
+            <CreateTag open={addTagMenu} toggleOpen={toggleTagMenu} />
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import clsx from "clsx";
 
 import { cn } from "@/lib/cn";
 
@@ -9,7 +8,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-black dark:bg-zinc-800 text-white dark:text-blackhover:bg-black/80 dark:hover:bg-zinc-800/80",
+                    "bg-black text-white dark:text-blackhover:bg-black/80 dark:hover:bg-zinc-800/80",
                 destructive:
                     "bg-destructive text-destructive-foreground hover:bg-destructive/90",
                 outline:

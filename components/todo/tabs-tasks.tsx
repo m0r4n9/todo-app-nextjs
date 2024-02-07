@@ -20,7 +20,7 @@ export const TabsTask = () => {
     };
 
     return (
-        <div className="flex gap-4 py-2">
+        <div className="flex gap-4">
             <Link
                 href={createOptionUrl()}
                 className={clsx({

@@ -15,7 +15,11 @@ const links = [
     { name: "Настройки", href: "/settings", icon: Cog6ToothIcon },
 ];
 
-export default function NavLinks() {
+export default function NavLinks({
+    toggleSidebar,
+}: {
+    toggleSidebar?: () => void;
+}) {
     const pathname = usePathname();
 
     return (
@@ -26,6 +30,7 @@ export default function NavLinks() {
                     <Link
                         key={link.name}
                         href={link.href}
+                        onClick={toggleSidebar}
                         className={clsx(
                             "mt-2 flex items-center justify-start gap-1 rounded p-4 text-start first:mt-0 dark:text-white",
                             {

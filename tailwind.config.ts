@@ -9,6 +9,9 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            zIndex: {
+                "-1": "-1",
+            },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "gradient-conic":

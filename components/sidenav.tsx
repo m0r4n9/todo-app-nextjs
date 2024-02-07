@@ -7,7 +7,7 @@ import { SidenavHeader } from "./sidenavHeader";
 
 export default function SideNav() {
     return (
-        <div className="sticky top-0 flex h-screen flex-col justify-center px-2">
+        <nav className="sticky top-0 flex h-screen flex-col justify-center px-2">
             <SidenavHeader />
             <div className="flex grow flex-col justify-center">
                 <NavLinks />
@@ -25,6 +25,6 @@ export default function SideNav() {
                     </button>
                 </form>
             </div>
-        </div>
+        </nav>
     );
 }
