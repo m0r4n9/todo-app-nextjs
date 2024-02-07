@@ -9,19 +9,23 @@ export const TabsTask = () => {
     const searchParams = useSearchParams();
     const optionsTasks = searchParams.get("op");
 
-    const createOptionUrl = (option: string) => {
+    const createOptionUrl = (option?: string) => {
         const params = new URLSearchParams(searchParams);
-        params.set("op", option);
+        if (option) {
+            params.set("op", option);
+        } else {
+            params.delete("op");
+        }
         return `${pathname}?${params.toString()}`;
     };
 
     return (
         <div className="flex gap-4 py-2">
             <Link
-                href={createOptionUrl("all")}
+                href={createOptionUrl()}
                 className={clsx({
                     "underline decoration-black dark:decoration-white":
-                        optionsTasks === "all" || !optionsTasks,
+                        !optionsTasks,
                 })}
             >
                 Все

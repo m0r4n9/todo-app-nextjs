@@ -28,9 +28,13 @@ export const TagsDropdown = ({
     const tagsTasks = searchParams.get("tag");
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-    const createTagUrl = (tag: string) => {
+    const createTagUrl = (tag?: string) => {
         const params = new URLSearchParams(searchParams);
-        params.set("tag", tag);
+        if (tag) {
+            params.set("tag", tag);
+        } else {
+            params.delete("tag");
+        }
         return `${pathname}?${params.toString()}`;
     };
 
@@ -97,6 +101,23 @@ export const TagsDropdown = ({
                             className="p-3"
                         >
                             <ul className="flex flex-col items-center justify-center gap-2">
+                                <li
+                                    className={clsx(
+                                        "flex w-full justify-between gap-2 "
+                                    )}
+                                >
+                                    <Link
+                                        href={createTagUrl()}
+                                        className={clsx(
+                                            "cursor-pointer hover:underline",
+                                            {
+                                                "text-violet-300": !tagsTasks,
+                                            }
+                                        )}
+                                    >
+                                        Все
+                                    </Link>
+                                </li>
                                 {tags?.map((tag) => (
                                     <li
                                         key={tag.id}
