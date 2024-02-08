@@ -20,7 +20,7 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
             throw new Error("Database Failed: cannot get user data by email.");
         }
 
-        if (deadline === "all" || deadline === "") {
+        if (deadline === "" || !deadline) {
             return await prisma.task.findMany({
                 where: {
                     userId: Number(userData.id),
@@ -49,13 +49,13 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
             where: {
                 userId: Number(userData.id),
                 ...deadlineCondition,
-            },
-            include: {
-                tag: {
-                    where: {
-                        ...(tagName ? { name: tagName } : {}),
-                    },
-                },
+                ...(tagName
+                    ? {
+                          tag: {
+                              name: tagName,
+                          },
+                      }
+                    : {}),
             },
             orderBy: [{ status: "asc" }, { deadline: "asc" }, { id: "desc" }],
         });
