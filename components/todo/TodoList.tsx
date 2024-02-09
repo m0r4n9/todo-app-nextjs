@@ -15,7 +15,7 @@ export default async function TodoList({
     const tags = await fetchTags();
 
     return (
-        <div className="mt-3">
+        <div className="md:mt-3">
             <div>
                 <HeaderTaskList tags={tags} />
                 <CreateTask />

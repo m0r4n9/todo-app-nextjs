@@ -44,9 +44,9 @@ export const TaskItem = (props: { task: Task }) => {
             key={task.id}
             initial={{ height: 0, opacity: 0, marginTop: 0 }}
             animate={{
-                height: "auto",
                 opacity: 1,
-                marginTop: "0.5rem",
+                height: "auto",
+                marginTop: 8,
                 transition: {
                     type: "spring",
                     bounce: 0.3,
@@ -57,7 +57,6 @@ export const TaskItem = (props: { task: Task }) => {
                 opacity: 0,
                 height: 0,
                 marginTop: 0,
-                x: "100%",
                 transition: {
                     type: "keyframes",
                 },
@@ -68,7 +67,7 @@ export const TaskItem = (props: { task: Task }) => {
                 bounce: 0,
                 opacity: { duration: 0.12 },
             }}
-            className="rounded border-b-2 bg-gray-100  dark:border-neutral-600 dark:bg-zinc-800"
+            className="rounded bg-gray-100 shadow-[rgba(0,0,0,0.3)_0px_3px_0px_0px] hover:shadow-slate-600 dark:border-neutral-600 dark:bg-zinc-800"
         >
             <div className="flex justify-between p-2">
                 <div className="flex items-center gap-2">

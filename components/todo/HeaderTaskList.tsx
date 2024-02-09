@@ -20,14 +20,11 @@ export const HeaderTaskList = ({ tags }: HeaderTaskListProps) => {
 
     return (
         <div
-            className={clsx("flex items-center py-1 md:justify-between", {
-                "justify-end": addTagMenu,
-                "justify-between": !addTagMenu,
-            })}
+            className={clsx(
+                "flex flex-col items-end py-1 md:flex-row md:items-center md:justify-between"
+            )}
         >
-            <div
-                className={`${addTagMenu ? "hidden md:block" : ""} text-nowrap`}
-            >
+            <div className="self-end">
                 <TabsTask />
             </div>
 

@@ -1,18 +1,18 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 export const Modal = ({ children }: { children: React.ReactNode }) => {
-    const overlay = React.useRef(null);
-    const wrapper = React.useRef(null);
+    const overlay = useRef(null);
+    const wrapper = useRef(null);
     const router = useRouter();
 
-    const onDismiss = React.useCallback(() => {
+    const onDismiss = useCallback(() => {
         router.back();
     }, [router]);
 
-    const onClick: React.MouseEventHandler = React.useCallback(
+    const onClick: React.MouseEventHandler = useCallback(
         (e) => {
             if (e.target === overlay.current || e.target === wrapper.current) {
                 if (onDismiss) onDismiss();
@@ -21,16 +21,20 @@ export const Modal = ({ children }: { children: React.ReactNode }) => {
         [onDismiss, overlay, wrapper]
     );
 
-    const onKeyDown = React.useCallback(
+    const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
             if (e.key === "Escape") onDismiss();
         },
         [onDismiss]
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
         document.addEventListener("keydown", onKeyDown);
-        return () => document.removeEventListener("keydown", onKeyDown);
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+            document.body.style.overflow = "auto";
+        };
     }, [onKeyDown]);
 
     return (

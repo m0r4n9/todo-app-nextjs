@@ -76,7 +76,7 @@ export const TagsDropdown = ({
                                 delay: 0.05,
                             },
                         }}
-                        className="absolute right-0 top-6 z-40 max-h-80 min-w-36 overflow-hidden overflow-y-auto rounded bg-zinc-800 shadow-xl"
+                        className="absolute right-0 top-6 z-40 max-h-80 min-w-36 overflow-hidden overflow-y-auto rounded bg-gray-100 shadow-2xl dark:bg-zinc-800"
                     >
                         <motion.div
                             initial={{

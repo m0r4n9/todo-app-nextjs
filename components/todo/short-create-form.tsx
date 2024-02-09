@@ -33,7 +33,7 @@ export default function CreateTask() {
     }, [handleCreateTask]);
 
     return (
-        <div className="rounded bg-gray-100 dark:bg-neutral-600">
+        <div className="rounded bg-gray-100  dark:bg-neutral-600">
             <div className="relative flex items-center rounded">
                 {isPending ? (
                     <BeatLoader size={9} className="text-white" />
@@ -49,7 +49,7 @@ export default function CreateTask() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Добавить новую задачу"
-                    className="grow rounded-r-lg bg-inherit p-2 placeholder:text-black focus:outline-none  dark:text-white dark:placeholder:text-gray-300"
+                    className="grow rounded-r-lg bg-inherit px-10 py-2 transition placeholder:text-black focus:shadow-md focus:outline-none  dark:text-white dark:placeholder:text-gray-300"
                     disabled={isPending}
                 />
             </div>
@@ -67,7 +67,7 @@ const CreateButton = ({
     return (
         <button
             onClick={onSubmit}
-            className="flex cursor-pointer rounded-l-lg bg-inherit p-2 "
+            className="absolute left-0 top-0 flex cursor-pointer rounded-l-lg bg-inherit p-2 "
             aria-disabled={pending}
         >
             <PlusIcon className="h-[24px] w-[24px] transition duration-300 hover:rotate-90 dark:text-white" />

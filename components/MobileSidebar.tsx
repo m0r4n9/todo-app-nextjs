@@ -11,36 +11,53 @@ import { SidenavHeader } from "./sidenavHeader";
 export const MobileSidebar = () => {
     const [open, setOpen] = useState(false);
 
+    const toggleSidebar = () => {
+        setOpen((prevState) => !prevState);
+    };
+
     return (
         <div className="">
-            <button
-                onClick={() => {
-                    setOpen((prevState) => !prevState);
-                }}
-                className="flex text-4xl text-white"
-            >
-                <Bars3Icon className="w-[24px]" />
-            </button>
+            <div className="flex">
+                <button
+                    onClick={toggleSidebar}
+                    className="flex-none rounded p-1 text-4xl text-white transition hover:bg-gray-200"
+                >
+                    <Bars3Icon className="w-[24px] text-black dark:text-white" />
+                </button>
+                <div className="flex-1 text-center text-xl font-semibold">
+                    TODO App
+                </div>
+            </div>
 
             <AnimatePresence>
                 {open && (
-                    <motion.div
+                    <motion.aside
                         initial={{
                             width: 0,
                         }}
                         animate={{
-                            width: "50vw",
+                            width: "55vw",
                         }}
                         exit={{
                             width: 0,
                         }}
-                        className="pointer-events-auto fixed bottom-0 left-0 right-0 top-0 z-50 flex h-screen bg-black"
+                        className="pointer-events-auto fixed bottom-0 left-0 right-0 top-0 z-50 flex h-dvh bg-white dark:bg-zinc-900"
                     >
-                        <div
-                            onClick={() => {
-                                setOpen((prevState) => !prevState);
+                        <motion.div
+                            initial={{
+                                opacity: 0,
                             }}
-                            className="fixed bottom-0 left-0 right-0 top-0 z-[-1] bg-black  opacity-50"
+                            animate={{
+                                opacity: 1,
+                                transition: {
+                                    delay: 0.27,
+                                },
+                            }}
+                            exit={{
+                                opacity: 0,
+                            }}
+                            onClick={toggleSidebar}
+                            className="fixed bottom-0 left-0 right-0 top-0 z-[-1] bg-black/50"
                         />
                         <motion.nav
                             initial={{
@@ -49,7 +66,8 @@ export const MobileSidebar = () => {
                             animate={{
                                 opacity: 1,
                                 transition: {
-                                    delay: 0.15,
+                                    delay: 0.2,
+                                    duration: 0.2,
                                 },
                             }}
                             exit={{
@@ -58,7 +76,7 @@ export const MobileSidebar = () => {
                                     duration: 0.1,
                                 },
                             }}
-                            className="z-50 flex h-full w-full flex-col justify-center bg-zinc-900 px-2"
+                            className="flex h-full w-full flex-col justify-center bg-inherit px-2"
                         >
                             <SidenavHeader />
                             <div className="flex grow flex-col justify-center">
@@ -83,7 +101,7 @@ export const MobileSidebar = () => {
                                 </div>
                             </div>
                         </motion.nav>
-                    </motion.div>
+                    </motion.aside>
                 )}
             </AnimatePresence>
         </div>

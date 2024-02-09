@@ -84,12 +84,12 @@ export const CreateTag = (props: CreateTagProps) => {
                                 id="tagName"
                                 value={tagName}
                                 onChange={(e) => setTagName(e.target.value)}
-                                className="peer block w-full appearance-none rounded p-1 text-sm focus:border-blue-600 focus:outline-none focus:ring-0  dark:text-white dark:focus:border-blue-500"
+                                className="peer block w-full appearance-none rounded bg-gray-100 p-1 text-sm focus:border-blue-600 focus:outline-none focus:ring-0 dark:bg-zinc-700  dark:text-white dark:focus:border-blue-500"
                                 placeholder=" "
                             />
                             <label
                                 htmlFor="tagName"
-                                className="absolute top-1 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-sm text-gray-400 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:px-2  peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+                                className="absolute top-1 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:px-2 dark:text-gray-400  dark:peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
                             >
                                 Название тега
                             </label>
@@ -98,7 +98,7 @@ export const CreateTag = (props: CreateTagProps) => {
                         <button
                             aria-disabled={isPending}
                             onClick={handleAddTag}
-                            className="rounded px-2 text-sm transition duration-300 hover:bg-zinc-800"
+                            className="rounded px-2 text-sm transition duration-300 hover:bg-gray-200 dark:hover:bg-zinc-800"
                         >
                             Добавить
                         </button>

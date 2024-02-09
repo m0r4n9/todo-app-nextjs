@@ -21,7 +21,7 @@ export default async function Page({
 
     return (
         <main className="dark:text-white">
-            <div>
+            <div className="hidden md:block">
                 <h1 className="text-4xl font-bold">Список задач</h1>
             </div>
             <div>

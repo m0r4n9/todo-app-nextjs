@@ -2,6 +2,7 @@
 
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
+    DateValue,
     getLocalTimeZone,
     parseAbsoluteToLocal,
     toCalendarDate,
@@ -10,7 +11,6 @@ import {
 import type { Tag, Task } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import { DateValue } from "react-aria-components";
 
 import { DatePicker } from "@/components/ui/DatePicker";
 import { useShowToast } from "@/hooks/useShowToast";
@@ -50,7 +50,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
     };
 
     return (
-        <div className="relative w-[40vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white">
+        <div className="relative w-[80vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white md:w-[40vw]">
             <div className="absolute right-1 top-1">
                 <Button size="icon" onClick={() => router.back()}>
                     <XMarkIcon />
@@ -85,6 +85,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
 
             <div>
                 <select
+                    id="tag_task"
                     defaultValue={task.tagId || ""}
                     onChange={(e) => onChaneData("tagId", e.target.value)}
                 >
