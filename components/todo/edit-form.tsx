@@ -64,8 +64,8 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
     };
 
     return (
-        <div className="relative w-[80vw] rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white md:w-[40vw]">
-            <div className="absolute right-1 top-1">
+        <div className="relative w-screen rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white md:w-[40vw]">
+            <div className="absolute right-1 top-1 hidden md:block">
                 <Button
                     variant="ghost"
                     size="icon"
@@ -74,7 +74,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                     <XMarkIcon className="size-4 dark:text-white" />
                 </Button>
             </div>
-            <div className="pt-2">
+            <div className="flex flex-col pt-2 md:flex-row">
                 <label htmlFor="title">Задача: </label>
                 <input
                     type="text"
@@ -83,7 +83,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                     value={formData.title}
                     onChange={(e) => onChaneData("title", e.target.value)}
                     placeholder="Введите название задачи"
-                    className="ml-2 rounded bg-gray-300 px-2 py-1 dark:bg-neutral-600"
+                    className="rounded bg-gray-300 px-2 py-1 dark:bg-neutral-600 md:ml-2"
                 />
             </div>
 
@@ -110,7 +110,12 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Выберите тег" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent
+                        ref={(ref) => {
+                            if (!ref) return;
+                            ref.ontouchstart = (e) => e.preventDefault();
+                        }}
+                    >
                         <SelectGroup>
                             <SelectLabel>Теги</SelectLabel>
                             {tags?.map((tag) => (

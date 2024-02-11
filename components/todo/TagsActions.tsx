@@ -24,7 +24,7 @@ export const TagsActions = (props: TagsActionsProps) => {
     const onCloseDropdown = useCallback(() => setDropdownOpen(false), []);
 
     return (
-        <div className="flex min-h-7 gap-2">
+        <div className="flex min-h-7 items-center gap-2">
             {!addTagMenu && (
                 <TagsDropdown
                     tags={tags}

@@ -1,4 +1,5 @@
 import { Modal } from "@/components/Modal";
+import { DialogEditTask } from "@/components/todo/DialogEditTask";
 import { EditForm } from "@/components/todo/edit-form";
 import { fetchTags, getTaskById } from "@/lib/data";
 
@@ -23,8 +24,8 @@ export default async function ModalEditTask({
     }
 
     return (
-        <Modal>
+        <DialogEditTask>
             <EditForm task={taskData} tags={tags} />
-        </Modal>
+        </DialogEditTask>
     );
 }

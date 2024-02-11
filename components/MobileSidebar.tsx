@@ -86,17 +86,12 @@ export const MobileSidebar = () => {
                             </div>
                             <div className="mb-2 w-full">
                                 <div>
-                                    <button className="flex w-full gap-2 rounded-md p-3 transition duration-300 hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-500">
+                                    <button
+                                        className="flex w-full gap-2 rounded-md p-3 transition duration-300 hover:bg-gray-200 dark:text-white dark:hover:bg-zinc-500"
+                                        onClick={() => signOut()}
+                                    >
                                         <PowerIcon className="w-6" />
-                                        <button
-                                            onClick={() =>
-                                                signOut({
-                                                    callbackUrl: "/login",
-                                                })
-                                            }
-                                        >
-                                            Выйти
-                                        </button>
+                                        Выйти
                                     </button>
                                 </div>
                             </div>

@@ -1,7 +1,9 @@
 "use client";
 
+import { DocumentPlusIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useTransition } from "react";
+import { toast } from "sonner";
 
 import { createTag } from "@/lib/actions";
 
@@ -18,24 +20,13 @@ export const CreateTag = (props: CreateTagProps) => {
     const handleAddTag = () => {
         startTransition(() => {
             createTag(tagName).then((res) => {
-                //if (!res) {
-                //    showToast({
-                //        title: `Метка "${tagName}" успешно создалась`,
-                //        type: "success",
-                //        timeout: 3500,
-                //    });
-                //    setTagName("");
-                //    toggleOpen();
-                //} else {
-                //    let message = null;
-                //    if (res.message) message = res.message;
-                //    showToast({
-                //        title: `Произошла ошибка, повторите попытку`,
-                //        message: message || "",
-                //        type: "error",
-                //        timeout: 3500,
-                //    });
-                //}
+                if (!res) {
+                    toast.success("Тег добавлен.", {
+                        duration: 3000,
+                    });
+                } else {
+                    toast.error("Ошибка при создании тега.");
+                }
             });
         });
     };
@@ -43,7 +34,11 @@ export const CreateTag = (props: CreateTagProps) => {
     return (
         <div className="flex">
             <button onClick={toggleOpen} className="mr-2">
-                {open ? "Скрыть" : "Добавить"}
+                {open ? (
+                    <XCircleIcon className="size-4" />
+                ) : (
+                    <DocumentPlusIcon className="size-4" />
+                )}
             </button>
 
             <AnimatePresence>
