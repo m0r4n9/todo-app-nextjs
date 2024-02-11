@@ -1,5 +1,5 @@
 import { EditForm } from "@/components/todo/edit-form";
-import { getTaskById } from "@/lib/data";
+import { fetchTags, getTaskById } from "@/lib/data";
 
 export default async function Page({
     params: { id },
@@ -7,6 +7,7 @@ export default async function Page({
     params: { id: string };
 }) {
     const taskData = await getTaskById(id);
+    const tags = await fetchTags();
 
     if (!taskData) {
         return (
@@ -20,7 +21,7 @@ export default async function Page({
 
     return (
         <main>
-            <EditForm task={taskData} />
+            <EditForm task={taskData} tags={tags} />
         </main>
     );
 }

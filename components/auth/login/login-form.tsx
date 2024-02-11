@@ -93,11 +93,7 @@ function LoginButton() {
     const { pending } = useFormStatus();
 
     return (
-        <Button
-            variant="default"
-            className="mt-4 w-full cursor-pointer"
-            aria-disabled={pending}
-        >
+        <Button className="mt-4 w-full cursor-pointer" aria-disabled={pending}>
             Войти <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
     );

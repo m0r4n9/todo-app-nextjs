@@ -9,6 +9,9 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            backgroundColor: {
+                "text-muted-foreground": "var(--primary-foreground)",
+            },
             zIndex: {
                 "-1": "-1",
             },
@@ -26,9 +29,6 @@ const config: Config = {
             },
         },
     },
-    plugins: [
-        require("tailwindcss-react-aria-components"),
-        require("tailwindcss-animate"),
-    ],
+    plugins: [require("tailwindcss-animate")],
 };
 export default config;

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { Button } from "@/components/ui/Button";
+import { Calendar } from "@/components/ui/Calendar";
 
 export const metadata: Metadata = {
     title: "Home",
@@ -10,9 +10,7 @@ export default function Page() {
     return (
         <div className="dark:text-white">
             <p>It is page home</p>
-            <Button variant="ghost" size="lg">
-                Test Variants
-            </Button>
+            <Calendar />
         </div>
     );
 }

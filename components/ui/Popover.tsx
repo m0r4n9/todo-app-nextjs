@@ -1,42 +1,33 @@
-import type { AriaPopoverProps } from "@react-aria/overlays";
-import { DismissButton, Overlay, usePopover } from "@react-aria/overlays";
-import clsx from "clsx";
-import { ReactNode, RefObject, useRef } from "react";
-import type { OverlayTriggerState } from "react-stately";
+"use client";
 
-interface PopoverProps extends Omit<AriaPopoverProps, "popoverRef"> {
-    children: ReactNode;
-    state: OverlayTriggerState;
-    className?: string;
-    popoverRef?: RefObject<HTMLDivElement>;
-}
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import * as React from "react";
 
-export function Popover(props: PopoverProps) {
-    let ref = useRef<HTMLDivElement>(null);
-    let { popoverRef = ref, state, children, className, isNonModal } = props;
+import { cn } from "@/lib/utils";
 
-    let { popoverProps, underlayProps } = usePopover(
-        {
-            ...props,
-            popoverRef,
-        },
-        state
-    );
+const Popover = PopoverPrimitive.Root;
 
-    return (
-        <Overlay>
-            {!isNonModal && (
-                <div {...underlayProps} className="fixed inset-0" />
+const PopoverTrigger = PopoverPrimitive.Trigger;
+
+const PopoverAnchor = PopoverPrimitive.Anchor;
+
+const PopoverContent = React.forwardRef<
+    React.ElementRef<typeof PopoverPrimitive.Content>,
+    React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+>(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
+    <PopoverPrimitive.Portal>
+        <PopoverPrimitive.Content
+            ref={ref}
+            align={align}
+            sideOffset={sideOffset}
+            className={cn(
+                "text-popover-foreground z-50 w-72 rounded-md border bg-black p-4 shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+                className
             )}
-            <div
-                {...popoverProps}
-                ref={popoverRef}
-                className={clsx("z-10 mt-2", className)}
-            >
-                {!isNonModal && <DismissButton onDismiss={state.close} />}
-                {children}
-                <DismissButton onDismiss={state.close} />
-            </div>
-        </Overlay>
-    );
-}
+            {...props}
+        />
+    </PopoverPrimitive.Portal>
+));
+PopoverContent.displayName = PopoverPrimitive.Content.displayName;
+
+export { Popover, PopoverAnchor, PopoverContent, PopoverTrigger };

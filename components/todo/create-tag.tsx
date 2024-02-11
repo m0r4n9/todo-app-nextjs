@@ -3,7 +3,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useTransition } from "react";
 
-import { useShowToast } from "@/hooks/useShowToast";
 import { createTag } from "@/lib/actions";
 
 interface CreateTagProps {
@@ -15,29 +14,28 @@ export const CreateTag = (props: CreateTagProps) => {
     const { open, toggleOpen } = props;
     const [tagName, setTagName] = useState("");
     const [isPending, startTransition] = useTransition();
-    const { showToast } = useShowToast();
 
     const handleAddTag = () => {
         startTransition(() => {
             createTag(tagName).then((res) => {
-                if (!res) {
-                    showToast({
-                        title: `Метка "${tagName}" успешно создалась`,
-                        type: "success",
-                        timeout: 3500,
-                    });
-                    setTagName("");
-                    toggleOpen();
-                } else {
-                    let message = null;
-                    if (res.message) message = res.message;
-                    showToast({
-                        title: `Произошла ошибка, повторите попытку`,
-                        message: message || "",
-                        type: "error",
-                        timeout: 3500,
-                    });
-                }
+                //if (!res) {
+                //    showToast({
+                //        title: `Метка "${tagName}" успешно создалась`,
+                //        type: "success",
+                //        timeout: 3500,
+                //    });
+                //    setTagName("");
+                //    toggleOpen();
+                //} else {
+                //    let message = null;
+                //    if (res.message) message = res.message;
+                //    showToast({
+                //        title: `Произошла ошибка, повторите попытку`,
+                //        message: message || "",
+                //        type: "error",
+                //        timeout: 3500,
+                //    });
+                //}
             });
         });
     };

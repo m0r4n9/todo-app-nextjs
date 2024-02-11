@@ -2,9 +2,9 @@
 
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
-import { ToastContextProvider } from "@/components/providers/ToastProvider";
 
 export function Providers({
     children,
@@ -15,9 +15,10 @@ export function Providers({
 }) {
     return (
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <ToastContextProvider>
-                <SessionProvider session={session}>{children}</SessionProvider>
-            </ToastContextProvider>
+            <SessionProvider session={session}>
+                {children}
+                <Toaster />
+            </SessionProvider>
         </ThemeProvider>
     );
 }

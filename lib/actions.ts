@@ -10,13 +10,9 @@ import { signIn } from "@/auth";
 import { currentUser } from "@/lib/auth";
 import { getUserByEmail } from "@/lib/data";
 import prisma from "@/lib/prisma";
-import {
-    CreateTag,
-    CreateTaskSchema,
-    RegisterSchema,
-    ShortCreateTaskSchema,
-} from "@/schemas";
+import { CreateTag, RegisterSchema, ShortCreateTaskSchema } from "@/schemas";
 
+// AUTH
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData
@@ -45,7 +41,6 @@ export interface RegisterState {
     message?: string | null;
 }
 
-// what for we use prevState?
 export async function register(prevState: RegisterState, formData: FormData) {
     const validatedFields = RegisterSchema.safeParse({
         email: formData.get("email"),
@@ -85,63 +80,7 @@ export async function register(prevState: RegisterState, formData: FormData) {
     redirect("/login");
 }
 
-export interface CreateTaskState {
-    errors?: {
-        title?: string[];
-        desc?: string[];
-        deadline?: string[];
-    };
-    message?: string | null;
-}
-
-export async function createTask(
-    prevState: CreateTaskState,
-    formData: FormData
-) {
-    const validatedFields = CreateTaskSchema.safeParse({
-        title: formData.get("title"),
-        desc: formData.get("desc"),
-        deadline: formData.get("deadline"),
-    });
-
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: "Invalid fields.",
-        };
-    }
-
-    const { title, desc, deadline } = validatedFields.data;
-    const userData = await currentUser();
-
-    if (!userData?.id) {
-        return {
-            message: "User is not auth.",
-        };
-    }
-
-    const numUserId = Number(userData.id);
-
-    try {
-        await prisma.task.create({
-            data: {
-                title,
-                desc,
-                deadline,
-                userId: numUserId,
-            },
-        });
-    } catch (e) {
-        console.log(e);
-        return {
-            message: "Database Error: Failed to Create Task",
-        };
-    }
-
-    revalidatePath("/todo");
-    redirect("/todo");
-}
-
+// Tasks
 export async function shortCreateTask(title: string) {
     const validatedFields = ShortCreateTaskSchema.safeParse({
         title,
@@ -196,7 +135,7 @@ export async function deleteTask(id: number) {
 export async function updateTask(data: Task) {
     if (!data || !data.id) {
         return {
-            message: "Missing data",
+            message: "Данные отсутствуют",
         };
     }
 
@@ -214,7 +153,7 @@ export async function updateTask(data: Task) {
         });
     } catch (e) {
         console.log(e);
-        return { message: "Database Error: Failed to Update Task" };
+        return { message: "Database Error: Не удалось обновить задачу" };
     }
 
     redirect("/todo");
@@ -243,6 +182,7 @@ export async function updateStatus(taskId: number, newStatus: boolean) {
     revalidatePath("/todo");
 }
 
+// Tag
 export async function createTag(tagName: string) {
     const validatedFields = CreateTag.safeParse({
         name: tagName,

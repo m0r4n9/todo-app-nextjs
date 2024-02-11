@@ -12,14 +12,6 @@ export const RegisterSchema = z.object({
     }),
 });
 
-export const CreateTaskSchema = z.object({
-    title: z.string().min(1, {
-        message: "Title is required.",
-    }),
-    desc: z.string().optional(),
-    deadline: z.coerce.date(),
-});
-
 export const ShortCreateTaskSchema = z.object({
     title: z.string().min(1, {
         message: "Title is required.",
