@@ -24,8 +24,12 @@ export const CreateTag = (props: CreateTagProps) => {
                     toast.success("Тег добавлен.", {
                         duration: 3000,
                     });
+                    setTagName("");
+                    toggleOpen();
                 } else {
-                    toast.error("Ошибка при создании тега.");
+                    toast.error("Ошибка при создании тега.", {
+                        description: res.message,
+                    });
                 }
             });
         });

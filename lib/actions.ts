@@ -195,10 +195,19 @@ export async function createTag(tagName: string) {
         };
     }
 
+    const userData = await currentUser();
+
+    if (!userData) {
+        return {
+            message: "Пользователь не авторизован.",
+        };
+    }
+
     const { name } = validatedFields.data;
 
     const hasTag = await prisma.tag.findFirst({
         where: {
+            userId: Number(userData.id),
             name: {
                 contains: name,
                 mode: "insensitive",
@@ -211,8 +220,6 @@ export async function createTag(tagName: string) {
             message: "Данный тег уже существует",
         };
     }
-
-    const userData = await currentUser();
 
     if (!userData?.id) {
         return {
