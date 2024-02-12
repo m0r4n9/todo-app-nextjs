@@ -39,9 +39,9 @@ export const CreateTag = (props: CreateTagProps) => {
         <div className="flex">
             <button onClick={toggleOpen} className="mr-2">
                 {open ? (
-                    <XCircleIcon className="size-4" />
+                    <XCircleIcon className="size-6 md:size-4" />
                 ) : (
-                    <DocumentPlusIcon className="size-4" />
+                    <DocumentPlusIcon className="size-6 md:size-4" />
                 )}
             </button>
 
@@ -81,12 +81,12 @@ export const CreateTag = (props: CreateTagProps) => {
                                 id="tagName"
                                 value={tagName}
                                 onChange={(e) => setTagName(e.target.value)}
-                                className="peer block w-full appearance-none rounded bg-gray-100 p-1 text-sm focus:border-blue-600 focus:outline-none focus:ring-0 dark:bg-zinc-700  dark:text-white dark:focus:border-blue-500"
+                                className="peer block w-full appearance-none rounded bg-gray-100 p-1 text-xl focus:border-blue-600 focus:outline-none focus:ring-0 dark:bg-zinc-700 dark:text-white  dark:focus:border-blue-500 md:text-sm"
                                 placeholder=" "
                             />
                             <label
                                 htmlFor="tagName"
-                                className="absolute top-1 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-sm duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:px-2 dark:text-gray-400  dark:peer-focus:text-white rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
+                                className="absolute top-1 z-10 origin-[0] -translate-y-4 scale-75 transform px-2 text-base duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-5 peer-focus:scale-75 peer-focus:px-2 dark:text-gray-400 dark:peer-focus:text-white  md:text-sm rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4"
                             >
                                 Название тега
                             </label>

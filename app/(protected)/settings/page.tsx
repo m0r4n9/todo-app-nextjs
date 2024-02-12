@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { ThemeSwitch } from "@/components/ui/ThemeSwitch";
 
 export default function Page() {
@@ -5,7 +7,9 @@ export default function Page() {
         <div>
             <h1 className="text-5xl font-semibold">Настройки</h1>
             <div className="mt-4">
-                <ThemeSwitch />
+                <Suspense fallback="Loading themes...">
+                    <ThemeSwitch />
+                </Suspense>
             </div>
         </div>
     );

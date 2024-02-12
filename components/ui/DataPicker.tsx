@@ -54,7 +54,8 @@ export function DatePicker({
                         setDate(date);
                         setCalendarOpen?.(false);
                     }}
-                    initialFocus
+                    // Bug on mobile, don't open popover if initalFocus true
+                    //initialFocus
                 />
             </PopoverContent>
         </Popover>

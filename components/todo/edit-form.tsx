@@ -74,7 +74,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                     <XMarkIcon className="size-4 dark:text-white" />
                 </Button>
             </div>
-            <div className="flex flex-col pt-2 md:flex-row">
+            <div className="flex flex-col pt-2 text-xl md:flex-row md:text-sm">
                 <label htmlFor="title">Задача: </label>
                 <input
                     type="text"
@@ -87,7 +87,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                 />
             </div>
 
-            <div className="mt-4 flex flex-col">
+            <div className="mt-4 flex flex-col text-xl md:text-sm">
                 <label htmlFor="desc" className="mb-2 block font-medium">
                     Описание
                 </label>
@@ -97,14 +97,14 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                     placeholder="Напишите описание задачи."
                     value={formData.desc ?? ""}
                     onChange={(e) => onChaneData("desc", e.target.value)}
-                    className="black:bg-neutral-600 block h-40 w-full resize-none rounded-lg bg-gray-300 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-600"
+                    className="black:bg-neutral-600 block h-40 w-full resize-none rounded-lg bg-gray-300 p-2.5 focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-600 md:text-sm"
                 />
             </div>
 
             <div className="mt-4 flex flex-col">
                 <span>Tag:</span>
                 <Select
-                    value={task.tagId?.toString()}
+                    defaultValue={task.tagId?.toString()}
                     onValueChange={(tagId) => onChaneData("tagId", tagId)}
                 >
                     <SelectTrigger className="w-[180px]">
@@ -132,19 +132,19 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
                 <DatePicker date={date} setDate={onChangeDate} />
             </div>
 
-            <div className="mt-2 flex justify-end gap-2">
+            <div className="mt-4 flex justify-end gap-2 md:mt-2">
                 <Button
                     variant="ghost"
                     disabled={isPending}
                     onClick={handleUpdateTask}
-                    className="transition duration-150 hover:bg-zinc-900 hover:text-white"
+                    className="md:text-basetransition text-xl duration-150 hover:bg-zinc-900 hover:text-white md:text-base"
                 >
                     Сохранить
                 </Button>
                 <Button
                     variant="ghost"
                     onClick={resetChange}
-                    className="transition duration-150 hover:bg-red-500"
+                    className="text-xl transition duration-150 hover:bg-red-500 md:text-base"
                 >
                     Отменить
                 </Button>

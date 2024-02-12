@@ -58,7 +58,7 @@ export const TagsDropdown = ({
     return (
         <div className="relative" ref={dropdownRef}>
             <button className="flex" onClick={toggleOpen}>
-                <TagIcon className="size-4" />
+                <TagIcon className="size-6 md:size-4" />
             </button>
 
             <AnimatePresence>

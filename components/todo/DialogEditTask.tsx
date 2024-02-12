@@ -38,7 +38,12 @@ export const DialogEditTask = ({ children }: { children: React.ReactNode }) => {
                 {children}
                 <DrawerFooter className="pt-2">
                     <DrawerClose asChild>
-                        <Button variant="outline">Закрыть</Button>
+                        <Button
+                            variant="outline"
+                            className="text-xl md:text-base"
+                        >
+                            Закрыть
+                        </Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
