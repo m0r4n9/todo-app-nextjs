@@ -26,6 +26,13 @@ export const authConfig = {
         Github({
             clientId: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            profile(profile) {
+                return {
+                    id: profile.id.toString(),
+                    name: profile.name ?? profile.login,
+                    email: profile.email,
+                };
+            },
         }),
     ], // Add providers with an empty array for now
 } satisfies NextAuthConfig;

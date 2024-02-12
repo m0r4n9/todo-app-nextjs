@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { User } from "@prisma/client";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -7,13 +8,6 @@ import { z } from "zod";
 import prisma from "@/lib/prisma";
 
 import { authConfig } from "./auth.config";
-
-type User = {
-    id: number;
-    name: string;
-    password: string;
-    email: string;
-};
 
 declare module "next-auth" {
     interface Session {
@@ -40,6 +34,7 @@ export const {
     signIn,
     signOut,
 } = NextAuth({
+    adapter: PrismaAdapter(prisma),
     ...authConfig,
     callbacks: {
         // @ts-ignore
@@ -72,7 +67,7 @@ export const {
                 if (parsedCredentials.success) {
                     const { email, password } = parsedCredentials.data;
                     const user = await getUser(email);
-                    if (!user) return null;
+                    if (!user || !user.password) return null;
                     const passwordMatch = await bcrypt.compare(
                         password,
                         user.password
@@ -91,6 +86,6 @@ export const {
         }),
         ...authConfig.providers,
     ],
-    //adapter: PrismaAdapter(prisma),
-    //session: { strategy: "jwt" },
+
+    session: { strategy: "jwt" },
 });

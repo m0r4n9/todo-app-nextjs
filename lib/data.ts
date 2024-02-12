@@ -13,7 +13,7 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
             throw new Error("User is not auth.");
         }
         const user = await prisma.user.findUnique({
-            where: { id: Number(userData.id) },
+            where: { id: userData.id },
         });
 
         if (!user?.id) {
@@ -23,7 +23,7 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
         if (deadline === "" || !deadline) {
             return await prisma.task.findMany({
                 where: {
-                    userId: Number(userData.id),
+                    userId: userData.id,
                     ...(tagName
                         ? {
                               tag: {
@@ -47,7 +47,7 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
 
         return await prisma.task.findMany({
             where: {
-                userId: Number(userData.id),
+                userId: userData.id,
                 ...deadlineCondition,
                 ...(tagName
                     ? {
@@ -74,7 +74,7 @@ export async function fetchTags() {
             throw new Error("User is not auth.");
         }
         const user = await prisma.user.findUnique({
-            where: { id: Number(userData.id) },
+            where: { id: userData.id },
         });
 
         if (!user?.id) {
@@ -83,7 +83,7 @@ export async function fetchTags() {
 
         return await prisma.tag.findMany({
             where: {
-                userId: Number(user.id),
+                userId: user.id,
             },
         });
     } catch (e) {
@@ -118,7 +118,7 @@ export async function getUserByEmail(email: string) {
     }
 }
 
-export async function getUserDataById(userId: number) {
+export async function getUserDataById(userId: string) {
     try {
         return await prisma.user.findUnique({
             where: {

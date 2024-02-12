@@ -101,14 +101,17 @@ export async function shortCreateTask(title: string) {
         };
     }
 
+    console.log(userData);
+
     try {
         await prisma.task.create({
             data: {
                 title,
-                userId: Number(userData.id),
+                userId: userData.id,
             },
         });
     } catch (e) {
+        console.log(e);
         return {
             message: "Database Error: Failed to Create Task.",
         };
@@ -207,7 +210,7 @@ export async function createTag(tagName: string) {
 
     const hasTag = await prisma.tag.findFirst({
         where: {
-            userId: Number(userData.id),
+            userId: userData.id,
             name: {
                 contains: name,
                 mode: "insensitive",
@@ -231,7 +234,7 @@ export async function createTag(tagName: string) {
         await prisma.tag.create({
             data: {
                 name,
-                userId: Number(userData.id),
+                userId: userData.id,
             },
         });
     } catch (e) {
