@@ -64,7 +64,7 @@ export const EditForm = (props: { task: Task; tags?: Tag[] }) => {
     };
 
     return (
-        <div className="relative w-screen rounded bg-gray-100 p-3 text-black dark:bg-zinc-800 dark:text-white md:w-[40vw]">
+        <div className="w-fill relative text-black  dark:text-white md:w-[40vw]">
             <div className="absolute right-1 top-1 hidden md:block">
                 <Button
                     variant="ghost"

@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -22,7 +23,23 @@ export const DialogEditTask = ({ children }: { children: React.ReactNode }) => {
     const { isMatch } = useIsMatch();
 
     if (!isMatch) {
-        return <Modal>{children}</Modal>;
+        return (
+            <Modal>
+                <motion.div
+                    initial={{
+                        opacity: 0,
+                    }}
+                    animate={{
+                        opacity: 1,
+                        transition: {
+                            duration: 0.3,
+                        },
+                    }}
+                >
+                    {children}
+                </motion.div>
+            </Modal>
+        );
     }
 
     return (
@@ -35,7 +52,7 @@ export const DialogEditTask = ({ children }: { children: React.ReactNode }) => {
                 <DrawerHeader className="text-left">
                     <DrawerTitle>Редактирование задачи</DrawerTitle>
                 </DrawerHeader>
-                {children}
+                <div className="px-4">{children}</div>
                 <DrawerFooter className="pt-2">
                     <DrawerClose asChild>
                         <Button

@@ -45,7 +45,8 @@ export const Modal = ({ children }: { children: React.ReactNode }) => {
         >
             <div
                 ref={wrapper}
-                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2  p-6"
+                className="absolute
+                left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-gray-100 p-6 dark:bg-zinc-800"
             >
                 {children}
             </div>

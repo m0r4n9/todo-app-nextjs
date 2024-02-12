@@ -1,3 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { GridLoader } from "react-spinners";
+
+import { useIsMatch } from "@/hooks/useIsMatch";
+
 const shimmer =
     "before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-zinc-300/60 dark:before:via-zinc-600/60 before:to-transparent";
 
@@ -18,6 +25,36 @@ export function TaskSkeleton() {
                     />
                 ))}
             </div>
+        </div>
+    );
+}
+
+export function ModalSkeleton() {
+    const router = useRouter();
+    const { isMatch } = useIsMatch();
+
+    let content = (
+        <div
+            onClick={(e) => e.stopPropagation()}
+            className={`${shimmer} absolute  left-1/2 top-1/2 h-[455px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded p-6 dark:bg-zinc-800 dark:text-white md:w-[43vw]`}
+        ></div>
+    );
+
+    if (isMatch) {
+        content = (
+            <GridLoader
+                className="absolute  left-1/2 top-1/2 h-[455px] -translate-x-1/2 -translate-y-1/2 overflow-hidden"
+                color="white"
+            />
+        );
+    }
+
+    return (
+        <div
+            className="fixed bottom-0 left-0 right-0 top-0 z-10 mx-auto bg-black/60"
+            onClick={() => router.back()}
+        >
+            {content}
         </div>
     );
 }
