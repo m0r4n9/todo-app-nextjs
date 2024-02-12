@@ -1,3 +1,4 @@
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcrypt";
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
@@ -41,8 +42,7 @@ export const {
 } = NextAuth({
     ...authConfig,
     callbacks: {
-        ...authConfig.callbacks,
-        //@ts-ignore
+        // @ts-ignore
         session({ session, token }) {
             return {
                 user: {
@@ -52,6 +52,7 @@ export const {
                 expires: session.expires,
             };
         },
+        ...authConfig.callbacks,
     },
     providers: [
         Credentials({
@@ -88,5 +89,8 @@ export const {
                 return null;
             },
         }),
+        ...authConfig.providers,
     ],
+    //adapter: PrismaAdapter(prisma),
+    //session: { strategy: "jwt" },
 });
