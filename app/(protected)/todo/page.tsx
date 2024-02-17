@@ -24,11 +24,9 @@ export default async function Page({
             <div className="hidden md:block">
                 <h1 className="text-4xl font-bold">Список задач</h1>
             </div>
-            <div>
-                <Suspense fallback={<TaskSkeleton />}>
-                    <TodoList option={option} tag={tag} />
-                </Suspense>
-            </div>
+            <Suspense fallback={<TaskSkeleton />}>
+                <TodoList option={option} tag={tag} />
+            </Suspense>
         </main>
     );
 }

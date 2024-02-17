@@ -3,7 +3,7 @@ import { unstable_noStore as noStore } from "next/cache";
 import { currentUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 
-export async function fetchTodoList(deadline?: string, tagName?: string) {
+export async function fetchTodoList(option?: string, tagName?: string) {
     noStore();
 
     try {
@@ -20,7 +20,7 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
             throw new Error("Database Failed: cannot get user data by email.");
         }
 
-        if (deadline === "" || !deadline) {
+        if (option === "" || !option) {
             return await prisma.task.findMany({
                 where: {
                     userId: userData.id,
@@ -36,19 +36,29 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
             });
         }
 
-        const deadlineCondition =
-            deadline === "deadline"
-                ? { NOT: { deadline: null } }
-                : {
-                      AND: {
-                          deadline: null,
-                      },
-                  };
+        let optionCondition = null;
+        if (option !== "completed" && option !== "active") {
+            optionCondition =
+                option === "deadline"
+                    ? { NOT: { deadline: null } }
+                    : {
+                          AND: {
+                              deadline: null,
+                          },
+                      };
+        } else {
+            optionCondition =
+                option === "active"
+                    ? {
+                          status: false,
+                      }
+                    : { status: true };
+        }
 
         return await prisma.task.findMany({
             where: {
                 userId: userData.id,
-                ...deadlineCondition,
+                ...optionCondition,
                 ...(tagName
                     ? {
                           tag: {
@@ -61,6 +71,47 @@ export async function fetchTodoList(deadline?: string, tagName?: string) {
         });
     } catch (err) {
         console.log("Database error:", err);
+    }
+}
+
+export async function fetchTasksCount() {
+    try {
+        const userData = await currentUser();
+
+        if (!userData?.id) {
+            return {
+                message: "Пользователь не авторизован.",
+            };
+        }
+        const userId = userData.id;
+
+        const countCompletedTask = await prisma.task.count({
+            where: {
+                userId,
+                status: true,
+            },
+        });
+
+        const activeTasks = await prisma.task.count({
+            where: {
+                userId,
+                status: false,
+            },
+        });
+
+        const allTasks = await prisma.task.count({
+            where: {
+                userId,
+            },
+        });
+
+        return {
+            allTasks,
+            activeTasks,
+            countCompletedTask,
+        };
+    } catch (e) {
+        console.log("Database Error:", e);
     }
 }
 

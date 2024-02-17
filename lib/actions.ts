@@ -101,8 +101,6 @@ export async function shortCreateTask(title: string) {
         };
     }
 
-    console.log(userData);
-
     try {
         await prisma.task.create({
             data: {

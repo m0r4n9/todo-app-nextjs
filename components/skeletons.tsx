@@ -12,7 +12,15 @@ const shimmer =
 
 export function TaskSkeleton() {
     return (
-        <div>
+        <div className="mt-8">
+            <div className="flex justify-between">
+                <div
+                    className={`${shimmer} relative h-[25px] w-[380px] overflow-hidden bg-gray-100 shadow-sm dark:bg-zinc-800`}
+                ></div>
+                <div
+                    className={`${shimmer} relative h-[25px] w-12 overflow-hidden bg-gray-100 shadow-sm dark:bg-zinc-800`}
+                ></div>
+            </div>
             <div
                 className={`${shimmer} relative mt-3 overflow-hidden rounded bg-gray-100 p-5 shadow-sm dark:bg-zinc-800`}
             ></div>

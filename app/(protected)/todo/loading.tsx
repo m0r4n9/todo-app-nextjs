@@ -1,3 +1,6 @@
+import { TaskSkeleton } from "@/components/skeletons";
+
 export default function Loading() {
-    return <h1>Loading page</h1>;
+    // return <TaskSkeleton />;
+    return "";
 }

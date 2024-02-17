@@ -21,7 +21,7 @@ export const HeaderTaskList = ({ tags }: HeaderTaskListProps) => {
     return (
         <div
             className={clsx(
-                "flex flex-col items-end py-1 md:flex-row md:items-center md:justify-between"
+                "flex flex-col items-end py-1 lg:flex-row lg:items-center lg:justify-between"
             )}
         >
             <div className="self-end">
